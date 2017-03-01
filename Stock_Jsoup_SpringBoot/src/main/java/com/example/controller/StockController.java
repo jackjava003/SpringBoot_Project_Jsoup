@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.models.Stock_infoBean;
-import com.example.service.Parse_HTML_Service;
-import com.example.service.Stock_Service;
+import com.example.models.StockInfoBean;
+import com.example.service.ParseHTMLService;
+import com.example.service.StockService;
 
 @Controller
 public class StockController {
@@ -29,9 +29,9 @@ public class StockController {
 	 private String recordCount;
 	
 	@Autowired
-	Stock_Service stockService;
+	StockService stockService;
 	@Autowired
-	Parse_HTML_Service pHService;
+	ParseHTMLService pHService;
 
 	@RequestMapping("/")
 	public String helloPage(Map<String, Object> model, HttpSession httpSession) {
@@ -49,7 +49,7 @@ public class StockController {
 				model.addAttribute("stockInfo", stockService.getStock(stockID_Int));
 				return "info";
 			} 
-			Stock_infoBean info = pHService.getStockInfo(stockID_Int);
+			StockInfoBean info = pHService.getStockTotalInfo(stockID_Int);
 			if (info != null) {
 				model.addAttribute("stockInfo", stockService.addStock(info));
 			}else{
@@ -73,7 +73,7 @@ public class StockController {
 				model.addAttribute("stockInfo", stockService.getStock(stockID_Int));
 				return "info";
 			} 
-			Stock_infoBean info = pHService.getStockInfo(stockID_Int);
+			StockInfoBean info = pHService.getStockTotalInfo(stockID_Int);
 			if (info != null) {
 				model.addAttribute("stockInfo", stockService.addStock(info));
 			}else{
@@ -91,7 +91,7 @@ public class StockController {
 	public void getMonthImage(@PathVariable("id") String stockID, HttpServletResponse response) {
 		try {
 			int stockID_Int = Integer.valueOf(stockID);
-			byte[] image = stockService.getStock(stockID_Int).getMon_annu_graph();
+			byte[] image = stockService.getStock(stockID_Int).getMonthlyRevenueChart();
 			try (OutputStream os = response.getOutputStream();) {
 				os.write(image);
 			}
@@ -104,7 +104,7 @@ public class StockController {
 	public void getQuartImage(@PathVariable("id") String stockID, HttpServletResponse response) {
 		try {
 			int stockID_Int = Integer.valueOf(stockID);
-			byte[] image = stockService.getStock(stockID_Int).getQuart_annu_graph();
+			byte[] image = stockService.getStock(stockID_Int).getQuarterlyRevenueChart();
 			try (OutputStream os = response.getOutputStream();) {
 				os.write(image);
 			}

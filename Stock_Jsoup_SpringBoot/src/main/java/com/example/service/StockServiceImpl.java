@@ -4,15 +4,16 @@ package com.example.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.example.models.Stock_infoBean;
-import com.example.models.Stock_infoDAO;
-
+import com.example.models.StockInfoBean;
+import com.example.models.StockInfoDAO;
+@Transactional
 @Component
-public class Stock_ServiceImpl implements Stock_Service {
+public class StockServiceImpl implements StockService {
 
 	@Autowired
-	Stock_infoDAO infoDAO;
+	StockInfoDAO infoDAO;
 	
 	@Override
 	public long recordCount(){
@@ -21,8 +22,8 @@ public class Stock_ServiceImpl implements Stock_Service {
 	
 	//檢查資料庫是否有資料
 	@Override
-	public boolean checkExist(int stock_id) {
-		Stock_infoBean info = infoDAO.findByStockID(stock_id);
+	public boolean checkExist(int stockId) {
+		StockInfoBean info = infoDAO.findByStockID(stockId);
 		if (info == null) {
 			return false;
 		} else {
@@ -33,7 +34,7 @@ public class Stock_ServiceImpl implements Stock_Service {
 	
 	//新增資料到資料庫
 	@Override
-	public Stock_infoBean addStock(Stock_infoBean info) {
+	public StockInfoBean addStock(StockInfoBean info) {
 		// if not exists	
 		if (info!=null && !checkExist(info.getStockID())) {
 			infoDAO.save(info);
@@ -46,8 +47,8 @@ public class Stock_ServiceImpl implements Stock_Service {
 	
 	//資料庫有資料 則從資料庫抓取資料
 	@Override
-	public Stock_infoBean getStock(int stock_id){
-		Stock_infoBean sib = infoDAO.findByStockID(stock_id);
+	public StockInfoBean getStock(int stockId){
+		StockInfoBean sib = infoDAO.findByStockID(stockId);
 		//System.out.println(sib.getStock_monthBeans().size());
 		return sib;
 		

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 @Component
 @Embeddable
-public class Quart_CompositeKey implements Serializable {
+public class QuartCompositeKey implements Serializable {
 
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class Quart_CompositeKey implements Serializable {
 	private int stockID;
 	private int quarterly;
 
-	public Quart_CompositeKey() {
+	public QuartCompositeKey() {
 
 	}
 

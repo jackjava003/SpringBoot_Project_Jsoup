@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 @Component
 @Embeddable
-public class Month_CompositeKey implements Serializable{
+public class MonthCompositeKey implements Serializable{
 	/**
 	 * 
 	 */
@@ -18,7 +18,7 @@ public class Month_CompositeKey implements Serializable{
 	private int stockID;
     private String month;
     
-    public Month_CompositeKey(){
+    public MonthCompositeKey(){
     	
     }
     

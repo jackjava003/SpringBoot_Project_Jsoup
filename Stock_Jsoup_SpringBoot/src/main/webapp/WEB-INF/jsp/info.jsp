@@ -16,14 +16,15 @@
 	<link href="${springCss}" rel="stylesheet" />
 	 -->
 <style>
-	table, th, tr, td {
-		border: 1px solid black;
-		text-align: center;
-	}
-	div{
-		margin-top:15px;
-		margin-bottom:15px;
-	}
+table, th, tr, td {
+	border: 1px solid black;
+	text-align: center;
+}
+
+div {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
 </style>
 </head>
 <body>
@@ -56,15 +57,15 @@
 					</tr>
 					<tr>
 						<td colspan="2">公司簡稱 (Company Name)</td>
-						<td colspan="3">${stockInfo.stock_Name }</td>
+						<td colspan="3">${stockInfo.stockName }</td>
 					</tr>
 					<tr>
 						<td colspan="2">產業類別 (Industry)</td>
-						<td colspan="3">${stockInfo.business_type }</td>
+						<td colspan="3">${stockInfo.businessType }</td>
 					</tr>
 					<tr>
 						<td colspan="2">董事長 (Chairman)</td>
-						<td colspan="3">${stockInfo.pres_Name }</td>
+						<td colspan="3">${stockInfo.president }</td>
 					</tr>
 					<tr>
 						<td colspan="2">股本 (Capital)</td>
@@ -72,27 +73,18 @@
 					</tr>
 					<tr>
 						<td colspan="2">更新日期 (Updated)</td>
-						<td colspan="3">${stockInfo.last_update }</td>
+						<td colspan="3">${stockInfo.lastUpdate }</td>
 					</tr>
 
 				</table>
 				
-				<jsp:useBean id="today" class="java.util.Date" />
-				<c:set var="updateAdd24Hours" value="${today.time + 86400000}"></c:set>
-				<p> ${updateAdd24Hours} ===== ${stockInfo.last_update.time}<p>
-				<c:if test="${updateAdd24Hours lt today.time}">
-					<form action="UserUpdate" method="post">
-						<input hidden="true" name="stockID" type="text" value="${stockInfo.stockID}"/>
-						<button type="submit" class="button button-block">Update</button>
-					</form>
-				</c:if>
 			</div>
 			<div
-					style="width: 100%; height:150px; background:url(${pageContext.servletContext.contextPath}/getImageMonth/${stockInfo.stockID}) no-repeat center;">
+				style="width: 100%; height:150px; background:url(${pageContext.servletContext.contextPath}/getImageMonth/${stockInfo.stockID}) no-repeat center;">
 			</div>
-			
+
 			<div
-					style="width:100%; height:150px; background:url(${pageContext.servletContext.contextPath}/getImageQuart/${stockInfo.stockID}) no-repeat center;">
+				style="width:100%; height:150px; background:url(${pageContext.servletContext.contextPath}/getImageQuart/${stockInfo.stockID}) no-repeat center;">
 			</div>
 		</c:if>
 
@@ -118,78 +110,79 @@
 					<td>達成率</td>
 
 				</tr>
-				<c:forEach items="${stockInfo.stock_monthBeans}" var="month_info"
+				<c:forEach items="${stockInfo.stockMonthlyBeans}" var="monthInfo"
 					varStatus="status">
 					<tr>
 						<td>${status.count}</td>
 						<c:choose>
-							<c:when test="${month_info.rev_105 eq 0}">
+							<c:when test="${monthInfo.revenueIn105 eq 0}">
 								<td>-</td>
 							</c:when>
 							<c:otherwise>
-								<td>${month_info.rev_105}</td>
+								<td>${monthInfo.revenueIn105}</td>
 							</c:otherwise>
 						</c:choose>
 
 						<c:choose>
-							<c:when test="${month_info.incr_rate_105 eq 0}">
+							<c:when test="${monthInfo.increaseRateIn105 eq 0}">
 								<td>-</td>
 							</c:when>
 							<c:otherwise>
-								<td>${month_info.incr_rate_105} %</td>
+								<td>${monthInfo.increaseRateIn105}%</td>
 							</c:otherwise>
 						</c:choose>
 
 						<td>${status.count}</td>
 
 						<c:choose>
-							<c:when test="${month_info.rev_106 eq 0}">
+							<c:when test="${monthInfo.revenueIn106 eq 0}">
 								<td>-</td>
 							</c:when>
 							<c:otherwise>
-								<td>${month_info.rev_106}</td>
+								<td>${monthInfo.revenueIn106}</td>
 							</c:otherwise>
 						</c:choose>
 
 						<c:choose>
-							<c:when test="${month_info.incr_rate_106 eq 0}">
+							<c:when test="${monthInfo.increaseRateIn106 eq 0}">
 								<td>-</td>
 							</c:when>
 							<c:otherwise>
-								<td>${month_info.incr_rate_106} %</td>
+								<td>${monthInfo.increaseRateIn106}%</td>
 							</c:otherwise>
 						</c:choose>
 
 						<c:choose>
-							<c:when test="${month_info.cumu_rev_106 eq 0}">
+							<c:when test="${monthInfo.accumulateRevenueIn106 eq 0}">
 								<td>-</td>
 							</c:when>
 							<c:otherwise>
-								<td>${month_info.cumu_rev_106}</td>
+								<td>${monthInfo.accumulateRevenueIn106}</td>
 							</c:otherwise>
 						</c:choose>
 
 						<c:choose>
-							<c:when test="${month_info.annu_rate_106 eq 0}">
+							<c:when test="${monthInfo.accumulateIncreaseRateIn106 eq 0}">
 								<td>-</td>
 							</c:when>
 							<c:otherwise>
-								<td>${month_info.annu_rate_106} %</td>
+								<td>${monthInfo.accumulateIncreaseRateIn106}%</td>
 							</c:otherwise>
 						</c:choose>
 
-						<td>${month_info.achieve_rate_106}</td>
+						<td>${monthInfo.achieveRateIn106}</td>
 					</tr>
 				</c:forEach>
 
 			</table>
 		</div>
-		
+
 		<div align="center">
 
 			<table style="width: 100%;">
 				<tr>
-					<th colspan="7">每 季 稅 後 盈 餘 變 化 (Quarterly after-tax surplus changes)</th>
+					<th colspan="7">每 季 稅 後 盈 餘 變 化 (Quarterly after-tax surplus
+						changes)</th>
 				</tr>
 				<tr>
 					<th colspan="3">104 年 度</th>
@@ -204,43 +197,44 @@
 					<td>年 增 率</td>
 					<td>達 成 率</td>
 				</tr>
-				<c:forEach items="${stockInfo.stock_quartBean}" var="quart_info"
+				<c:forEach items="${stockInfo.stockQuarterlyBeans}" var="quartInfo"
 					varStatus="status">
 					<tr>
 						<td>${status.count}</td>
 						<c:choose>
-							<c:when test="${quart_info.profit_AT_104 eq 0}">
+							<c:when test="${quartInfo.profitAT104 eq 0}">
 								<td>-</td>
 							</c:when>
 							<c:otherwise>
-								<td>${quart_info.profit_AT_104}</td>
+								<td>${quartInfo.profitAT104}</td>
 							</c:otherwise>
 						</c:choose>
-						
-						<td>${quart_info.profit_rate_AT_104}</td>
+
+						<td>${quartInfo.profitRateAT104}</td>
 						<td>${status.count}</td>
-						
+
 						<c:choose>
-							<c:when test="${quart_info.profit_AT_105 eq 0}">
+							<c:when test="${quartInfo.profitAT105 eq 0}">
 								<td>-</td>
 							</c:when>
 							<c:otherwise>
-								<td>${quart_info.profit_AT_105}</td>
+								<td>${quartInfo.profitAT105}</td>
 							</c:otherwise>
 						</c:choose>
-						
-						<td>${quart_info.profit_rate_AT_105}</td>
-						<td>${quart_info.achieve_rate_AT_105}</td>
+
+						<td>${quartInfo.profitRateAT105}</td>
+						<td>${quartInfo.achieveRateAT105}</td>
 					</tr>
 				</c:forEach>
 			</table>
 		</div>
-		
+
 		<div align="center">
 
 			<table style="width: 100%;">
 				<tr>
-					<th colspan="7">每 季 稅 前 盈 餘 變 化 (Quarterly before-tax surplus changes)</th>
+					<th colspan="7">每 季 稅 前 盈 餘 變 化 (Quarterly before-tax surplus
+						changes)</th>
 				</tr>
 				<tr>
 					<th colspan="3">104 年 度</th>
@@ -255,33 +249,33 @@
 					<td>年 增 率</td>
 					<td>達 成 率</td>
 				</tr>
-				<c:forEach items="${stockInfo.stock_quartBean}" var="quart_info"
+				<c:forEach items="${stockInfo.stockQuarterlyBeans}" var="quartInfo"
 					varStatus="status">
 					<tr>
 						<td>${status.count}</td>
 						<c:choose>
-							<c:when test="${quart_info.profit_BT_104 eq 0}">
+							<c:when test="${quartInfo.profitBT104 eq 0}">
 								<td>-</td>
 							</c:when>
 							<c:otherwise>
-								<td>${quart_info.profit_BT_104}</td>
+								<td>${quartInfo.profitBT104}</td>
 							</c:otherwise>
 						</c:choose>
-						
-						<td>${quart_info.profit_rate_BT_104}</td>
+
+						<td>${quartInfo.profitRateBT104}</td>
 						<td>${status.count}</td>
-						
+
 						<c:choose>
-							<c:when test="${quart_info.profit_BT_105 eq 0}">
+							<c:when test="${quartInfo.profitBT105 eq 0}">
 								<td>-</td>
 							</c:when>
 							<c:otherwise>
-								<td>${quart_info.profit_BT_105}</td>
+								<td>${quartInfo.profitBT105}</td>
 							</c:otherwise>
 						</c:choose>
-						
-						<td>${quart_info.profit_rate_BT_105}</td>
-						<td>${quart_info.achieve_rate_BT_105}</td>
+
+						<td>${quartInfo.profitRateBT105}</td>
+						<td>${quartInfo.achieveRateBT105}</td>
 					</tr>
 				</c:forEach>
 			</table>
